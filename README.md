@@ -46,7 +46,7 @@ cacheFunctionalityService.remove("kia");
 ## 5. Flush
 Clear the whole cache.
 
-##Execution
+## Execution
 The following two steps will help you to execute the InMemoryCache applicaton and the test cases will also be carried out in it.
 
 ```
