@@ -29,7 +29,7 @@ public interface CacheFunctionalityService {
 	/**
 	 * This method is used to remove the object from the cache by using the key. 
 	 * @param key - If the key is present then the respective Object will be removed else nothing will be removed from the cache. 
-	 * @return - nothing
+	 * @return - True if object removed else false
 	 */
 	public void remove(String key);
 

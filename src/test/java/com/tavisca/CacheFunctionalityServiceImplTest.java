@@ -84,9 +84,9 @@ public class CacheFunctionalityServiceImplTest {
 		cacheFunctionalities.add("hyundai",new Car("Hyundai", 1800.00, "SubSUV", 14.25, 18.30, 7, "Black"));
 		Object updatedObjectWithValues = cacheFunctionalities.get("hundai");
 
-		assertEquals(((Car)oldObject).getMake(),((Car)updatedObjectWithTime).getMake());
-		assertEquals(((Car)oldObject).getEngineCC(),((Car)updatedObjectWithTime).getEngineCC());
-		assertEquals(((Car)oldObject).getSeatingCapacity(),((Car)updatedObjectWithTime).getSeatingCapacity());
+		assertEquals(((Car)oldObject).getMake(),((Car)updatedObjectWithValues).getMake());
+		assertEquals(((Car)oldObject).getEngineCC(),((Car)updatedObjectWithValues).getEngineCC());
+		assertEquals(((Car)oldObject).getSeatingCapacity(),((Car)updatedObjectWithValues).getSeatingCapacity());
 
 
 	}

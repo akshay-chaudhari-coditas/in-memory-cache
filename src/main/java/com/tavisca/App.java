@@ -47,7 +47,8 @@ public class App
         logger.info("Cache size",cacheFunctionalityService.size());
 
         //8 Sleep the thread to see the working on the Cache
-        Thread.currentThread().sleep(8000);
+        Thread.currentThread();
+        Thread.sleep(8000);
 
         
         logger.info("Size of cache after Thread wakeup",cacheFunctionalityService.size());
