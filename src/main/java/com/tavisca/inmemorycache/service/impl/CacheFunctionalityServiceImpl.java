@@ -31,11 +31,11 @@ public class CacheFunctionalityServiceImpl implements CacheFunctionalityService{
 	@Override
 	public Object get(String key) {
 
-		boolean isObjectExpired =  cache.get(key).isObjectExpired();
+		boolean isObjectExpired =  cache.containsKey(key) ? cache.get(key).isObjectExpired() : false;
 		CacheObject cachedObject = isObjectExpired ? null : cache.get(key);
 
 		if(cachedObject != null){
-			cachedObject.setExpiryTime(System.currentTimeMillis() + Constants.MAX_LIFETIME_OF_OBJECT_IN_CACHE);
+			add(key, cachedObject.getData());
 		}
 		return cachedObject==null?null:cachedObject.getData();
 	}
@@ -63,7 +63,7 @@ public class CacheFunctionalityServiceImpl implements CacheFunctionalityService{
 		 * stored into the cache
 		 */
 	}
-	
+
 	/**
 	 * Before adding the data into the cache this methods checks whether any 
 	 * existing objects are expired or not if expired then it removes it from the cache
@@ -73,7 +73,7 @@ public class CacheFunctionalityServiceImpl implements CacheFunctionalityService{
 		cache.entrySet().removeIf(entry ->
 		entry.getValue().getExpiryTime() < System.currentTimeMillis());
 	}
-	
+
 	/**
 	 * This method validates the key and data to be stored into the cache.
 	 *
@@ -83,7 +83,7 @@ public class CacheFunctionalityServiceImpl implements CacheFunctionalityService{
 	 * @return true if key and data are validated successfully else false.
 	 */
 	private Boolean validateTheCacheObjectInput(String key, Object data) {
-		
+
 		if(key == null || key.isEmpty()) {
 			return false;
 		}else if(data == null || data.toString().isEmpty()) {
@@ -100,26 +100,24 @@ public class CacheFunctionalityServiceImpl implements CacheFunctionalityService{
 	 * @param data - To be added into the cache.
 	 */
 	private void addDataIntoTheCache(String key,Object data) {
-		if(cache.size() < Constants.CACHE_SIZE) {
-			CacheObject cacheObject = Optional.ofNullable(cache.get(key)).map(cacheObjectSoftReference ->
-			cacheObjectSoftReference).orElse(null);
-			if(cacheObject != null) {
-				log.info("Object updation");
-				cacheObject.setExpiryTime(System.currentTimeMillis() + Constants.MAX_LIFETIME_OF_OBJECT_IN_CACHE);
-				cacheObject.setLastModifiedTime(System.currentTimeMillis());
-				cacheObject.setData(data);
-				cache.put(key,cacheObject);
-			}else {
-				long expiryTime = System.currentTimeMillis() + Constants.MAX_LIFETIME_OF_OBJECT_IN_CACHE;
-				cache.put(key, new CacheObject(expiryTime,System.currentTimeMillis(),data));
-				log.info("object added in cache");
-			}
+		CacheObject cacheObject = Optional.ofNullable(cache.get(key)).map(cacheObjectSoftReference ->
+		cacheObjectSoftReference).orElse(null);
+		if(cacheObject != null) {
+//			log.info("Object updation");
+			cacheObject.setExpiryTime(System.currentTimeMillis() + Constants.MAX_LIFETIME_OF_OBJECT_IN_CACHE);
+			cacheObject.setLastModifiedTime(System.currentTimeMillis());
+			cacheObject.setData(data);
+			cache.put(key,cacheObject);
+		}else if(cache.size() < Constants.CACHE_SIZE){
+			long expiryTime = System.currentTimeMillis() + Constants.MAX_LIFETIME_OF_OBJECT_IN_CACHE;
+			cache.put(key, new CacheObject(expiryTime,System.currentTimeMillis(),data));
+//			log.info("object added in cache");
 		}else {
 			//Replacement Algorithm
 			replacementAlgorithm(key, data);
 		}
 	}
-	
+
 	/**
 	 * Replacement Algorithm Instead of not allowing to add the object into the cache this algorithm 
 	 * check which is the least accessed object by using the lastModifiedTime and replaces the new object 
@@ -128,10 +126,11 @@ public class CacheFunctionalityServiceImpl implements CacheFunctionalityService{
 	 * @param data - Data to be replaced.
 	 */
 	private void replacementAlgorithm(String key,Object data) {
-		log.info("Replacement Algorithm");
+//		log.info("Replacement Algorithm");
 		//Removing the least used object with the new one instead of not adding it in the cache
+		long currentMilli = System.currentTimeMillis();
 		cache.entrySet().forEach(entry->{
-			if((System.currentTimeMillis() - entry.getValue().getLastModifiedTime()) > higheshMilli) {
+			if((currentMilli - entry.getValue().getLastModifiedTime()) > higheshMilli) {
 				higheshMilli = entry.getValue().getLastModifiedTime();
 				keyToBeReplaced = entry.getKey();
 			}
@@ -140,5 +139,5 @@ public class CacheFunctionalityServiceImpl implements CacheFunctionalityService{
 		long expiryTime = System.currentTimeMillis() + Constants.MAX_LIFETIME_OF_OBJECT_IN_CACHE;
 		cache.put(key, new CacheObject(expiryTime,System.currentTimeMillis(),data));
 	}
-	
+
 }

@@ -25,11 +25,23 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.19.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>2.19.0</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- https://search.maven.org/artifact/commons-codec/commons-codec/1.11/jar -->
 		<dependency>
 			<groupId>commons-codec</groupId>
@@ -64,8 +76,10 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<groups>com.tavisca.CacheFunctionalityServiceImplTest1</groups>
+				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 </project>

@@ -44,7 +44,7 @@ public class CacheFunctionalityServiceImplTest {
 	public void remove(){
 		cacheFunctionalities.remove("ford");
 
-		assertEquals(CACHE_SIZE,cacheFunctionalities.size());
+		assertEquals((CACHE_SIZE -1),cacheFunctionalities.size());
 
 		cacheFunctionalities.remove("kia");
 

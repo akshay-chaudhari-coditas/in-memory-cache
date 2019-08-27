@@ -53,6 +53,9 @@ The following two steps will help you to execute the InMemoryCache applicaton an
 1.Creating JAR file
 	mvn clean package
 	
-2. Execution of the JAR
+2.Testing the application
+	mvn '-Dtest=com.tavisca.*' test
+		
+3. Execution of the JAR
 	java -cp target/inmemorycache-1.0-SNAPSHOT.jar com.tavisca.App
 ```
