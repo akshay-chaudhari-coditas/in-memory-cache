@@ -24,9 +24,9 @@ size = No of Objects to be stored into the cache
  To add in the cache we need to create <b>CacheObject</b> which contains the expiry time, last modified time and the object to be stored into the cache. Whenever we want to the object into the cache the method checks whether there is space in the cache or not if yes then CacheObject is been created and stored into the cache. If the cache is full then it checks for the least used cache and removes that object from the cache and then adds the new object.
  
 ```
-cacheFunctionalityService.add("suzuki",new Car("Maruti Suzuki", 1000.00, "Hatchback",5.45,6.30, 5, "White"));
-cacheFunctionalityService.add("ford",new Car("Ford", 3198.00, "SUV", 40.00, 42.50, 7, "Black"));
-cacheFunctionalityService.add("enfield",new Bike("Royal Enfield", 350.00, "Cruise", 1.49, 1.82, "Desert Storm"));
+cacheFunctionalityService.add(new Car("Maruti Suzuki", 1000.00, "Hatchback",5.45,6.30, 5, "White"));
+cacheFunctionalityService.add(new Car("Ford", 3198.00, "SUV", 40.00, 42.50, 7, "Black"));
+cacheFunctionalityService.add(new Bike("Royal Enfield", 350.00, "Cruise", 1.49, 1.82, "Desert Storm"));
 ```
 ## 2.Load
 The load is responsible to get the object from the datastore and add it into the cache.Loan internally calls the add method.
@@ -35,13 +35,13 @@ The load is responsible to get the object from the datastore and add it into the
 To retrieve the object from the cache using the key passed to the get() function.
 
 ```
-Car ford = (Car)cacheFunctionalityService.get("ford");
+Car ford = (Car)cacheFunctionalityService.get("UUID should be passed");
 ```
 ## 4.Remove
 Remove the existing object from the cache by the key passed to the method.
 
 ```
-cacheFunctionalityService.remove("kia");
+cacheFunctionalityService.remove("UUID should be passed");
 ```
 ## 5. Flush
 Clear the whole cache.

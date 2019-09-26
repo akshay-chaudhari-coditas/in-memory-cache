@@ -1,3 +1,4 @@
-com/tavisca/AppTest.class
+com/tavisca/inmemorycache/model/Car.class
 com/tavisca/CacheFunctionalityServiceImplTest1.class
-com/tavisca/CacheFunctionalityServiceImplTest.class
+com/tavisca/inmemorycache/model/Bike.class
+com/tavisca/AppTest.class

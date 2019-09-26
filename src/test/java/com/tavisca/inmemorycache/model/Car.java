@@ -1,6 +1,6 @@
 package com.tavisca.inmemorycache.model;
 
-public class Bike {
+public class Car extends UUIDGenerator{
 
 	private long id;
 	
@@ -13,16 +13,20 @@ public class Bike {
 	private Double exShowroomPrice;
 	
 	private Double onRoadPrice;
-
+	
+	private Integer seatingCapacity;
+	
 	private String color;
+	
 
-	public Bike(String make, Double engineCC, String type, Double exShowroomPrice, Double onRoadPrice,
-			String color) {
+	public Car(String make, Double engineCC, String type, Double exShowroomPrice, Double onRoadPrice,
+			Integer seatingCapacity, String color) {
 		this.make = make;
 		this.engineCC = engineCC;
 		this.type = type;
 		this.exShowroomPrice = exShowroomPrice;
 		this.onRoadPrice = onRoadPrice;
+		this.seatingCapacity = seatingCapacity;
 		this.color = color;
 	}
 
@@ -74,6 +78,14 @@ public class Bike {
 		this.onRoadPrice = onRoadPrice;
 	}
 
+	public Integer getSeatingCapacity() {
+		return seatingCapacity;
+	}
+
+	public void setSeatingCapacity(Integer seatingCapacity) {
+		this.seatingCapacity = seatingCapacity;
+	}
+
 	public String getColor() {
 		return color;
 	}
@@ -84,12 +96,10 @@ public class Bike {
 
 	@Override
 	public String toString() {
-		return "Bike [id=" + id + ", make=" + make + ", engineCC=" + engineCC + ", type=" + type + ", exShowroomPrice="
-				+ exShowroomPrice + ", onRoadPrice=" + onRoadPrice + ", color=" + color + "]";
+		return "Car [id=" + id + ", make=" + make + ", engineCC=" + engineCC + ", type=" + type + ", exShowroomPrice="
+				+ exShowroomPrice + ", onRoadPrice=" + onRoadPrice + ", seatingCapacity=" + seatingCapacity + ", color="
+				+ color + "]";
 	}
-	
-	
-	
 	
 	
 }
